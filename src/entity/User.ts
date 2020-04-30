@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, Unique } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateColumn } from 'typeorm';
 import { Length, IsNotEmpty, IsEmail } from 'class-validator';
 import * as bcrypt from 'bcryptjs';
 
@@ -79,6 +79,9 @@ import * as bcrypt from 'bcryptjs';
 export class User {
 	@PrimaryGeneratedColumn('uuid')
 	uuid!: string;
+
+	@CreateDateColumn({type: "timestamp"})
+    createdAt!: Date;
 
 	// @Column('text', { nullable: true })
 	@Column('text') // TODO: why?

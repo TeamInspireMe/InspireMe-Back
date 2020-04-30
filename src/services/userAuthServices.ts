@@ -14,7 +14,7 @@ interface BaseResult {
 	status: number;
 }
 
-export interface SuccesResult extends BaseResult {
+export interface SuccessResult extends BaseResult {
 	data: {
 		user: User;
 	};
@@ -27,7 +27,7 @@ export interface ErrorResult extends BaseResult {
 	err: any;
 }
 
-type Result = SuccesResult | ErrorResult;
+type Result = SuccessResult | ErrorResult;
 
 // TODO: use type User in params ???
 export const signupService = async (
@@ -40,7 +40,7 @@ export const signupService = async (
 	user.password = password;
 	user.email = email;
 
-	let res: SuccesResult;
+	let res: SuccessResult;
 	let err: ErrorResult;
 
 	const errors: ValidationError[] = await validate(user);
@@ -83,7 +83,7 @@ export const signupService = async (
 
 	return new Promise(
 		(
-			resolve: (result: SuccesResult) => void,
+			resolve: (result: SuccessResult) => void,
 			reject: (result: ErrorResult) => void,
 		) => {
 			if (err) reject(err);
@@ -100,7 +100,7 @@ export const signinService = async (
 ): Promise<Result> => {
 	return new Promise(
 		(
-			resolve: (result: SuccesResult) => void,
+			resolve: (result: SuccessResult) => void,
 			reject: (result: ErrorResult) => void,
 		) => {
 			passport.authenticate(

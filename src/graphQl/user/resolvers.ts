@@ -2,12 +2,12 @@ import { AuthenticationError } from 'apollo-server-errors';
 import {
 	signupService,
 	signinService,
-	SuccesResult,
+	SuccessResult,
 	ErrorResult,
-} from '../services/userAuthServices';
-import { User } from '../entity/User';
+} from '../../services/userAuthServices';
+import { User } from '../../entity/User';
 
-// TODO: Check usage type User  shared package instae?
+// TODO: Check usage type User  shared package instead?
 interface UserToRegister {
 	username: string;
 	password: string;
@@ -31,7 +31,7 @@ export const resolvers = {
 					password,
 					email,
 				);
-				return (result as SuccesResult).data.user;
+				return (result as SuccessResult).data.user;
 			} catch (error) {
 				throw new AuthenticationError((error as ErrorResult).err);
 			}
