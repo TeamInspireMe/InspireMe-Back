@@ -2,30 +2,40 @@ import { Post, } from "../../entity/Post";
 import { Type } from "../../../types";
 import { Section } from "../../entity/Section";
 import { getRepository } from "typeorm";
+import { addPost, SuccessResult, ErrorResult } from '../../services/postService';
 
 export const resolvers = {
     Query: {
-        getOne: (postId: Post["uuid"]) => { 'ok' },
-        getAll: () => 'okk'       
+        getAll: () => {
+            return getRepository(Post).find()
+        }, 
+        getOne: (postId: Post["uuid"]) => {
+            return getRepository(Post).findOne(postId.toString())
+        },     
     },
     Mutation: {
-        createPost(): void {
-            new Post()
+        upVotePost: (postId: Post["uuid"]): void => {
+            console.log('upvote');
+            
         },
-        likePost: (postId: Post["uuid"]): void => {
-            let post = getOne(postId);
-            return post.like += 1;
+        downVotePost: (postId: Post["uuid"]): void => {
+            console.log('downvote');
         },
-        dislikePost: (postId: Post["uuid"]): void => {
-            let post = getOne(postId);
-            return post.dislike += 1;
-        },
-        addPost: (title: String, type: Type!, section: Section!): Promise<Post> => {
+        createPost: async (title: String, type: Type, section: Section, data: String): Promise<Post> => {
             const post = new Post()
             post.title = title;
             post.type = type;
             post.section = section;
-            return getRepository(Post).save(post);   
+            post.data = data;
+            type Result = SuccessResult | ErrorResult;
+
+            try {
+                const result = await addPost(post);
+    
+                return (result as SuccessResult).data.post
+            } catch (error) {
+                throw new Error;
+            }
         }
     }
 }

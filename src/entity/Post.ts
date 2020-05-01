@@ -11,15 +11,19 @@ export class Post {
     @CreateDateColumn({type: "timestamp"})
     createdAt!: Date;
 
-    @Column()
+    @Column('text')
     @IsNotEmpty()
     title!: String;
-
-    @Column()
+    
+    @Column('text')
     @IsNotEmpty()
     type!: Type; 
 
-    @Column()
+    @Column('text')
+    @IsNotEmpty()
+    data!: String;
+
+    @Column('text')
     @IsNotEmpty()
     section!: Section; 
 
@@ -27,8 +31,8 @@ export class Post {
     reportCount?: number = 0;
 
     @Column()
-    like?: number = 0;
+    upVote?: number = 0;
 
     @Column()
-    dislike?: number = 0;
+    downVote?: number = 0;
 }

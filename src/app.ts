@@ -7,8 +7,9 @@ import './middlewares/passport';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { ApolloServer } from 'apollo-server-express';
-import { typeDefs } from './graphQl/user/typeDefs';
-import { resolvers } from './graphQl/user/resolvers';
+import { typeDefs, resolvers, schema } from './graphQl';
+
+
 
 const app: Express = express();
 
@@ -51,7 +52,7 @@ app.get(
 );
 
 // GraphQL startup
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({ schema });
 server.applyMiddleware({ app });
 
 export default app;

@@ -10,7 +10,7 @@ import { UserToRegister } from '../../../types';
 // Provide resolver functions for your schema fields
 export const resolvers = {
 	Query: {
-		hello: () => 'Hello world!',
+		helloo: () => 'Hello world!',
 	},
 	Mutation: {
 		signUp: async (
@@ -24,6 +24,7 @@ export const resolvers = {
 					password,
 					email,
 				);
+	
 				return (result as SuccessResult).data.user;
 			} catch (error) {
 				throw new AuthenticationError((error as ErrorResult).err);
