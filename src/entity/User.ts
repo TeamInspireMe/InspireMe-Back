@@ -84,8 +84,7 @@ export class User {
 	@CreateDateColumn({type: "timestamp"})
     createdAt!: Date;
 
-	// @Column('text', { nullable: true })
-	@Column('text') // TODO: why?
+	@Column('text') 
 	@IsNotEmpty()
 	username!: string;
 

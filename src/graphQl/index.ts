@@ -1,14 +1,24 @@
+import { mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
 import { typeDefs as typeDefsUser } from './user/typeDefs';
 import { resolvers as resolversUser} from './user/resolvers';
 import { typeDefs as typeDefsPost } from './post/typeDefs';
 import { resolvers as resolversPost } from './post/resolvers';
-import { DocumentNode } from 'graphql';
 import { makeExecutableSchema } from 'apollo-server-express';
 
-const typeDefs = [ typeDefsUser, typeDefsPost ];
-const resolvers: any = [ resolversUser, resolversPost ];
+const types = [
+  typeDefsUser,
+  typeDefsPost 
+];
+export const typeDefs = mergeTypes(types, { all: true });
 
-export const schema = makeExecutableSchema({
-    typeDefs,
-    resolvers
-})
+const resolvs = [
+  resolversUser,
+  resolversPost,
+];
+export const resolvers = mergeResolvers(resolvs);
+
+
+// export const schema = makeExecutableSchema({
+//     typeDefs,
+//     resolvers
+// })

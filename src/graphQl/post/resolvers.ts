@@ -1,8 +1,9 @@
 import { Post, } from "../../entity/Post";
-import { Type } from "../../../types";
 import { Section } from "../../entity/Section";
 import { getRepository } from "typeorm";
 import { addPost, SuccessResult, ErrorResult } from '../../services/postService';
+import { Type  } from "../../entity/Type";
+
 
 export const resolvers = {
     Query: {

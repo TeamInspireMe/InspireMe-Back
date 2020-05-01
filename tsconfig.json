@@ -10,9 +10,6 @@
 		"allowJs": false,
 		"noEmit": true,
 		"strict": true,
-		"paths": {
-			"@core/*": ["src/core/*"]
-		  },
 		"esModuleInterop": false,
 		"allowSyntheticDefaultImports": true,
 		"emitDecoratorMetadata": true,

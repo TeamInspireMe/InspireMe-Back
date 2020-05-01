@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn} from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
 import { Section } from './Section';
-import { Type } from '../../types';
+import { Type } from './Type';
 
 @Entity()
 export class Post {
@@ -27,12 +27,12 @@ export class Post {
     @IsNotEmpty()
     section!: Section; 
 
-    @Column()
-    reportCount?: number = 0;
+    @Column('integer')
+    reportCount?: Number;
 
-    @Column()
-    upVote?: number = 0;
+    @Column('integer')
+    upVote?: Number = 0;
 
-    @Column()
-    downVote?: number = 0;
+    @Column('integer')
+    downVote?: Number = 0;
 }
