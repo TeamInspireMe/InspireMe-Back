@@ -10,12 +10,16 @@
 		"allowJs": false,
 		"noEmit": true,
 		"strict": true,
+		"paths": {
+			"@core/*": ["src/core/*"]
+		  },
 		"esModuleInterop": false,
 		"allowSyntheticDefaultImports": true,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"outDir": ".dist"
 	},
+	"files": ["types.d.ts"],
 	"include": [
 		"src",
 		"types.d.ts"

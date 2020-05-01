@@ -1,6 +1,12 @@
 import typePost from './src/core/enums';
 
 interface Type {
-    uuid: String,
+    id: number,
     type: typePost
+}
+
+interface UserToRegister {
+	username: string;
+	password: string;
+	email: string;
 }

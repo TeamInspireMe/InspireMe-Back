@@ -1,18 +1,11 @@
 import { AuthenticationError } from 'apollo-server-errors';
 import {
 	signupService,
-	signinService,
 	SuccessResult,
 	ErrorResult,
 } from '../../services/userAuthServices';
 import { User } from '../../entity/User';
-
-// TODO: Check usage type User  shared package instead?
-interface UserToRegister {
-	username: string;
-	password: string;
-	email: string;
-}
+import { UserToRegister } from '../../../types'; 
 
 // Provide resolver functions for your schema fields
 export const resolvers = {
