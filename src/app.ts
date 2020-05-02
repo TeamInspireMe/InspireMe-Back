@@ -8,9 +8,8 @@ import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { ApolloServer } from 'apollo-server-express';
 // import { schema } from './graphQl';
-import { typeDefs, resolvers } from './graphQl';
+import { typeDefs, resolvers } from './graphQl/schema';
 import { makeExecutableSchema } from 'apollo-server-express';
-
 
 
 const app: Express = express();

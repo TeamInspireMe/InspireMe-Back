@@ -2,8 +2,9 @@ import { Request, Response } from 'express';
 import { Post } from '../entity/Post';
 import { Section } from '../entity/Section';
 import { addPostRepository } from '../repositories/postRepository';
+import { getOneTypePostRepository } from '../repositories/typePostRepository'
 import { validate, ValidationError } from 'class-validator';
-import { Type }from '../../types';
+import { Type } from '../../types';
 
 interface BaseResult {
     status: number;
@@ -23,17 +24,28 @@ type Result = SuccessResult | ErrorResult;
 
 export const addPost = async (
 	title: String, 
-	type: String, 
-	section: String, 
+	typeId: Number,
+	section: Number,
 	data: String
 ): Promise<Result> => {
 	let res: SuccessResult;
 	let err: ErrorResult;
+	
+	const post = new Post();
 
-	const post = new Post()
+	const typePost = await getOneTypePostRepository(typeId);
+
+	if (typePost == undefined) {
+		console.log(`Error typeError is ${typePost}`);
+		
+	} else {
+		post.title = title;
+		post.data = data;
+		post.type = typePost;
+	}
 
 	const errors: ValidationError[] = await validate(post);
-    
+
 	if (errors.length > 0) {
 		err = {
 			status: 400,

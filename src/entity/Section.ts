@@ -2,12 +2,9 @@ import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn} from "typeorm"
 
 @Entity()
 export class Section {
-    @PrimaryGeneratedColumn('uuid')
-    uuid!: String;
+    @Column('integer')
+    id!: Number;
 
-    @CreateDateColumn({type: "timestamp"})
-    createdAt!: Date;
-
-    @Column()
+    @Column('text')
     name!: String;
 }

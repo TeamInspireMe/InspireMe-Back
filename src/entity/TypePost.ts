@@ -1,7 +1,7 @@
 import { Entity, Column } from "typeorm";
 
 @Entity()
-export class Type {
+export class TypePost {
     @Column('integer')
     id!: Number;
 

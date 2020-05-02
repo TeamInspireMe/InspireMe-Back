@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn} from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
 import { Section } from './Section';
-import { Type } from './Type';
+import { TypePost } from './TypePost';
 
 @Entity()
 export class Post {
@@ -17,7 +17,7 @@ export class Post {
     
     @Column('text')
     @IsNotEmpty()
-    type!: Type; 
+    type!: TypePost; 
 
     @Column('text')
     @IsNotEmpty()

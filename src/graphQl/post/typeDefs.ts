@@ -1,11 +1,11 @@
 import { gql } from 'apollo-server-express';
 import { Section } from '../../entity/Section'
-import { Type } from '../../entity/Type';
+import { TypePost } from '../../entity/TypePost';
 
 export const typeDefs = gql`
     type Query {
-      getOne(uuid: String): Post!
-      getAll: [Post]
+      getOnePost(uuid: String): Post!
+      getAllPost: [Post]
     }
 
     type Mutation {
@@ -22,8 +22,7 @@ export const typeDefs = gql`
     scalar Date
 
     type Section {
-        uuid: String!
-        createdAt: Date!
+        id: Int!
         name: String!
     }
 
