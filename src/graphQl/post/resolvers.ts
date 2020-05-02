@@ -30,7 +30,7 @@ export const resolvers = {
             post.data = data;
 
             try {
-                const result = await addPost(title: String, type: String, section: String, data: String)
+                const result = await addPost(title, type, section, data)
                 // const result = await addPost(post);
     
                 return (result as SuccessResult).data.post
