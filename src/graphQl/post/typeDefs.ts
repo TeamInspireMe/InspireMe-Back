@@ -1,6 +1,4 @@
 import { gql } from 'apollo-server-express';
-import { Section } from '../../entity/Section'
-import { TypePost } from '../../entity/TypePost';
 
 export const typeDefs = gql`
     type Query {
@@ -14,22 +12,12 @@ export const typeDefs = gql`
         downVotePost(uuid: String!): Post!
     }
 
-    type Type {
-        id: Int!
-        name: String!
-    }
-
     scalar Date
-
-    type Section {
-        id: Int!
-        name: String!
-    }
 
     type Post {
         uuid: String!
         title: String!
-        type: Type!
+        type: TypePost!
         data: String!
         section: Section!
         upVote: Int!

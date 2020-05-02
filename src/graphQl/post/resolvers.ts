@@ -7,10 +7,10 @@ import { TypePost  } from "../../entity/TypePost";
 
 export const resolvers = {
     Query: {
-        getAll: () => {
+        getAllPost: () => {
             return getRepository(Post).find()
         }, 
-        getOne: (postId: Post["uuid"]) => {
+        getOnePost: (postId: Post["uuid"]) => {
             return getRepository(Post).findOne(postId.toString())
         },     
     },

@@ -13,7 +13,6 @@ import { typeDefs as typeDefsSection } from './section/typeDefs';
 import { resolvers as resolversSection } from './section/resolvers';
 
 import { makeExecutableSchema } from 'apollo-server-express';
-import {  } from 'graphql-tools';
 var merge = require('lodash.merge');
 
 const types = [
@@ -31,7 +30,8 @@ export const typeDefs = mergeTypes(types, { all: true });
 // ];
 //  export const resolvers = mergeResolvers(resolvs);
 
-export const resolvers = merge({}, resolversUser,
+export const resolvers = merge({}, 
+  resolversUser,
   resolversPost,
   resolversTypePost,
   resolversSection
