@@ -21,13 +21,20 @@ export interface ErrorResult extends BaseResult {
 
 type Result = SuccessResult | ErrorResult;
 
-export const addPost = async (post: Post): Promise<Result> => {
+export const addPost = async (
+	title: String, 
+	type: String, 
+	section: String, 
+	data: String
+): Promise<Result> => {
 	let res: SuccessResult;
 	let err: ErrorResult;
 
-    const errors: ValidationError[] = await validate(post);
+	const post = new Post()
+
+	const errors: ValidationError[] = await validate(post);
     
-    if (errors.length > 0) {
+	if (errors.length > 0) {
 		err = {
 			status: 400,
 			err: errors,

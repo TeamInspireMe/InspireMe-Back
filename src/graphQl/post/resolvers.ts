@@ -22,16 +22,16 @@ export const resolvers = {
         downVotePost: (postId: Post["uuid"]): void => {
             console.log('downvote');
         },
-        createPost: async (title: String, type: Type, section: Section, data: String): Promise<Post> => {
+        createPost: async (title: String, type: String, section: String, data: String): Promise<Post> => {
             const post = new Post()
             post.title = title;
-            post.type = type;
-            post.section = section;
+            // post.type = type;
+            // post.section = section;
             post.data = data;
-            type Result = SuccessResult | ErrorResult;
 
             try {
-                const result = await addPost(post);
+                const result = await addPost(title: String, type: String, section: String, data: String)
+                // const result = await addPost(post);
     
                 return (result as SuccessResult).data.post
             } catch (error) {
