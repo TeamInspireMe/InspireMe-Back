@@ -168,4 +168,6 @@ export const addPost = async (
   );
 }
 
-//  export deletePost = async ()
+export const addImage = async () => {
+	
+}
