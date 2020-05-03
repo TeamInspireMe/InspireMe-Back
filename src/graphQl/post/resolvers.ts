@@ -10,6 +10,7 @@ interface PostToRegister {
     data: String;
 }
 
+
 export const resolvers = {
     Query: {
         getAllPost:  async (): Promise<Post | Post[]>  => {
@@ -26,6 +27,7 @@ export const resolvers = {
         ) => {
             try {
                 const result: SuccessResult = await getOnePost(args.uuid)
+                // console.log(result)
                 return result.data.post;
             } catch (error) {
                 throw new Error;
@@ -46,8 +48,8 @@ export const resolvers = {
         ): Promise<Post | Post[]> => {
             try {
                 const result = await addPost(args.title, args.typeId, args.sectionId, args.data)
-                console.log(result);
-                return result
+                // console.log(result.data);
+                return (result as SuccessResult).data.post
             } catch (error) {
                 throw new Error;
             }

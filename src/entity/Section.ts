@@ -16,5 +16,5 @@ export class Section {
         type => Post,
         post => post.type
     )
-    posts!: Post[]
+    posts?: Post[]
 }

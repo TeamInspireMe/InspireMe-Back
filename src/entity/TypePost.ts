@@ -16,5 +16,5 @@ export class TypePost {
         type => Post,
         post => post.type
     )
-    posts!: Post[]
+    posts?: Post[]
 }

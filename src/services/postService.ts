@@ -28,7 +28,7 @@ export const getOnePost = async (id: String) => {
   let err: ErrorResult;
 
   try {
-    const postToSend: Post | undefined = await getOnePostRepository(id)
+		const postToSend: Post | undefined = await getOnePostRepository(id)
 
     if (postToSend == undefined) {
       err = {
@@ -69,7 +69,7 @@ export const getAllPost = async () => {
   let err: ErrorResult;
 
   try {
-    const postToSend: Post[] | undefined = await getAllPostRepository()
+		const postToSend: Post[] | undefined = await getAllPostRepository()
 
     if (postToSend == undefined) {
       err = {

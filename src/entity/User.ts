@@ -98,8 +98,12 @@ export class User {
 	@IsNotEmpty()
 	password!: string;
 
-	@ManyToOne(type => Post)
-	@JoinColumn({name: 'postID'})
+	@ManyToOne(
+		type => Post,
+		post => post.uuid,
+		{ eager: true }
+		)
+	@JoinColumn({name: 'postId'})
 	postId?: Post;
 
 	hashPassword(): void {

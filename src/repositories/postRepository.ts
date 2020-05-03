@@ -14,7 +14,7 @@ export async function deletePostRepository(post: Post): Promise<boolean> {
 
 export async function getOnePostRepository (id: String) {
   const postRepository: Repository<Post> = getRepository(Post);
-  return postRepository.findOne({uuid: id});
+  return await postRepository.findOne({uuid: id});
 }
 
 export async function getAllPostRepository () {

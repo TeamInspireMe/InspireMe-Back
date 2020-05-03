@@ -17,8 +17,10 @@ export class Post {
     
     @ManyToOne(
         type => TypePost,
-        typePost => typePost.id
+        typePost => typePost.id,
+        { eager: true }
     )
+    @JoinColumn()
     @IsNotEmpty()
     type!: TypePost; 
 
@@ -26,8 +28,12 @@ export class Post {
     @IsNotEmpty()
     data!: String;
 
-    @ManyToOne(type => Section)
-    @JoinColumn({name: 'sectionId'})
+    @ManyToOne(
+        type => Section,
+        section => section.id,
+        { eager: true }
+    )
+    @JoinColumn({name: 'section'})
     @IsNotEmpty()
     section!: Section; 
 
