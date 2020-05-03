@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
 import { Section } from './Section';
 import { TypePost } from './TypePost';
@@ -15,7 +15,10 @@ export class Post {
     @IsNotEmpty()
     title!: String;
     
-    @Column('text')
+    @ManyToOne(
+        type => TypePost,
+        typePost => typePost.id
+    )
     @IsNotEmpty()
     type!: TypePost; 
 
@@ -23,12 +26,13 @@ export class Post {
     @IsNotEmpty()
     data!: String;
 
-    @Column('text')
+    @ManyToOne(type => Section)
+    @JoinColumn({name: 'sectionId'})
     @IsNotEmpty()
     section!: Section; 
 
     @Column('integer')
-    reportCount?: Number;
+    reportCount?: Number = 0;
 
     @Column('integer')
     upVote?: Number = 0;

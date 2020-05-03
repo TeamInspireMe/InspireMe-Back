@@ -7,7 +7,7 @@ export const typeDefs = gql`
     }
 
     type Mutation {
-        createPost(title: String!, type: String!, section: String!, data: String!): Post!
+        createPost(title: String!, typeId: Int!, sectionId: Int!, data: String!): Post!
         upVotePost(uuid: String!): Post!
         downVotePost(uuid: String!): Post!
     }

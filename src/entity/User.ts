@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { Length, IsNotEmpty, IsEmail } from 'class-validator';
 import * as bcrypt from 'bcryptjs';
 import { Post } from './Post';
@@ -97,6 +97,10 @@ export class User {
 	@Length(8, 20)
 	@IsNotEmpty()
 	password!: string;
+
+	@ManyToOne(type => Post)
+	@JoinColumn({name: 'postID'})
+	postId?: Post;
 
 	hashPassword(): void {
 		this.password = bcrypt.hashSync(this.password, 8);

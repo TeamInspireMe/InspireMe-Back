@@ -3,6 +3,7 @@ import { Post } from '../entity/Post';
 import { Section } from '../entity/Section';
 import { addPostRepository, getOnePostRepository, getAllPostRepository } from '../repositories/postRepository';
 import { getOneTypePostRepository } from '../repositories/typePostRepository'
+import { getOneSectionRepository } from '../repositories/sectionRepository';
 import { validate, ValidationError } from 'class-validator';
 import { Type } from '../../types';
 
@@ -33,6 +34,7 @@ export const getOnePost = async (id: String) => {
       err = {
         status: 400,
         err: "this post doesn't exists",
+
       }
     } else {
 
@@ -104,23 +106,30 @@ export const getAllPost = async () => {
 export const addPost = async (
 	title: String, 
 	typeId: Number,
-	section: Number,
+	sectionId: Number,
 	data: String
 ): Promise<Result> => {
 	let res: SuccessResult;
 	let err: ErrorResult;
 	
 	const post = new Post();
+	post.title = title;
+	post.data = data;
 
 	const typePost = await getOneTypePostRepository(typeId);
 
 	if (typePost == undefined) {
 		console.log(`Error typeError is ${typePost}`);
-		
 	} else {
-		post.title = title;
-		post.data = data;
 		post.type = typePost;
+	}
+
+	const section = await getOneSectionRepository(sectionId)
+
+	if (section == undefined) {
+		console.log(`Error section is ${section}`);
+	} else {
+		post.section = section;
 	}
 
 	const errors: ValidationError[] = await validate(post);
@@ -133,7 +142,7 @@ export const addPost = async (
   }
 
   try {
-    const postToSend: Post = await addPostRepository(post)
+		const postToSend: Post = await addPostRepository(post)
 
     res = {
       status: 201,

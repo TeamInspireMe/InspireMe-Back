@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Post } from './Post'
 
 @Entity()
 export class Section {
@@ -10,4 +11,10 @@ export class Section {
 
     @Column('text')
     name!: String;
+    
+    @OneToMany(
+        type => Post,
+        post => post.type
+    )
+    posts!: Post[]
 }
