@@ -10,9 +10,12 @@ export const resolvers = {
                 throw new Error
             }
         },
-        getOneSection: async (id: Section["id"]): Promise<Section | Section[]> => {
+        getOneSection: async (
+            parent: any,
+			args: Section,
+        ): Promise<Section | Section[]> => {
             try {
-                const result: SuccessResult = await getOneSection(id);
+                const result: SuccessResult = await getOneSection(args.id);
                 return result.data.section;
             } catch (error) {
                 throw new Error
@@ -20,9 +23,12 @@ export const resolvers = {
         }
     },
     Mutation: {
-        createSection: async (id: Number, name: String): Promise<Section | Section[]> => {
+        createSection: async (
+            parent: any,
+			args: Section,
+        ): Promise<Section | Section[]> => {
             try {
-                const result: SuccessResult = await addSection(id, name);
+                const result: SuccessResult = await addSection(args.id, args.name);
                 return result.data.section
             } catch (error){
                 throw new Error;

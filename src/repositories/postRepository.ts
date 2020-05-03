@@ -11,3 +11,13 @@ export async function deletePostRepository(post: Post): Promise<boolean> {
   const result: Post = await postRepository.remove(post);
   return true
 }
+
+export async function getOnePostRepository (id: String) {
+  const postRepository: Repository<Post> = getRepository(Post);
+  return postRepository.findOne({uuid: id});
+}
+
+export async function getAllPostRepository () {
+  const postRepository: Repository<Post> = getRepository(Post);
+  return postRepository.find();
+}

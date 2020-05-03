@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { Post } from '../entity/Post';
 import { Section } from '../entity/Section';
-import { addPostRepository } from '../repositories/postRepository';
+import { addPostRepository, getOnePostRepository, getAllPostRepository } from '../repositories/postRepository';
 import { getOneTypePostRepository } from '../repositories/typePostRepository'
 import { validate, ValidationError } from 'class-validator';
 import { Type } from '../../types';
@@ -12,7 +12,7 @@ interface BaseResult {
 
 export interface SuccessResult extends BaseResult {
 	data: {
-		post: Post;
+		post: Post | Post[];
 	}
 }
 
@@ -21,6 +21,85 @@ export interface ErrorResult extends BaseResult {
 }
 
 type Result = SuccessResult | ErrorResult;
+
+export const getOnePost = async (id: String) => {
+  let res: SuccessResult;
+  let err: ErrorResult;
+
+  try {
+    const postToSend: Post | undefined = await getOnePostRepository(id)
+
+    if (postToSend == undefined) {
+      err = {
+        status: 400,
+        err: "this post doesn't exists",
+      }
+    } else {
+
+      res = {
+        status: 201,
+        data: { post: postToSend }
+      }
+    }
+
+  } catch (error) {
+    err = {
+			status: 400,
+			err: error.message,
+		};
+  }
+
+  return new Promise (
+    (
+			resolve: (result: SuccessResult) => void,
+			reject: (result: ErrorResult) => void,
+		) => {
+      if (err) reject(err);
+			else {
+				resolve(res);
+			}
+    },
+  )
+}
+
+export const getAllPost = async () => {
+  let res: SuccessResult;
+  let err: ErrorResult;
+
+  try {
+    const postToSend: Post[] | undefined = await getAllPostRepository()
+
+    if (postToSend == undefined) {
+      err = {
+        status: 400,
+        err: "an error occured while fetching all TypePosts",
+      }
+    } else {
+      res = {
+        status: 201,
+        data: { post: postToSend }
+      }
+    }
+
+  } catch (error) {
+    err = {
+			status: 400,
+			err: error.message,
+		};
+  }
+
+  return new Promise (
+    (
+			resolve: (result: SuccessResult) => void,
+			reject: (result: ErrorResult) => void,
+		) => {
+      if (err) reject(err);
+			else {
+				resolve(res);
+			}
+    },
+  )
+}
 
 export const addPost = async (
 	title: String, 

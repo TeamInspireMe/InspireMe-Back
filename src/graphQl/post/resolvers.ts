@@ -33,7 +33,7 @@ export const resolvers = {
                 const result = await addPost(title, type, section, data)
                 // const result = await addPost(post);
     
-                return (result as SuccessResult).data.post
+                return result.data.post
             } catch (error) {
                 throw new Error;
             }

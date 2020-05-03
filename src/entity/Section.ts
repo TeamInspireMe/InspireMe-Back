@@ -1,7 +1,10 @@
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
 export class Section {
+    @PrimaryGeneratedColumn('uuid')
+    uuid!: String;
+
     @Column('integer')
     id!: Number;
 

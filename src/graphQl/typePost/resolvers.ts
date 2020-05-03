@@ -3,9 +3,12 @@ import { addTypePost, getOneTypePost, getAllTypePost, SuccessResult } from '../.
 
 export const resolvers = {
   Query: {
-    getOneType: async (id: TypePost["id"]): Promise<TypePost | TypePost[]> => {
+    getOneType: async (
+      parent: any,
+			args: TypePost,
+    ): Promise<TypePost | TypePost[]> => {
       try {
-        const result: SuccessResult = await getOneTypePost(id)
+        const result: SuccessResult = await getOneTypePost(args.id)
         return result.data.typePost;
       } catch (error) {
         throw new Error
@@ -21,9 +24,12 @@ export const resolvers = {
     }, 
   },
   Mutation: {
-    createTypePost: async (id: Number, name: String): Promise<TypePost | TypePost[]> => {
+    createTypePost: async (
+      parent: any,
+			args: TypePost,
+    ): Promise<TypePost | TypePost[]> => {
       try {
-        const result: SuccessResult = await addTypePost(id, name);
+        const result: SuccessResult = await addTypePost(args.id, args.name);
 
         return result.data.typePost
       } catch (error) {

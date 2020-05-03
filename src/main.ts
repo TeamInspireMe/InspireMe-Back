@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 import app from './app';
-import { User } from './entity/User';
+import { Entities } from './entity';
 import * as PostgressConnectionStringParser from 'pg-connection-string';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 import chalk from 'chalk';
@@ -27,7 +27,7 @@ const typeOrmOptions: PostgresConnectionOptions = {
 	database: connectionOptions.database as string,
 	synchronize: true,
 	logging: false,
-	entities: [User],
+	entities: Entities,
 	extra: {
 		ssl: process.env.DB_DEV_SSL === 'true' ? true : false,
 	},
