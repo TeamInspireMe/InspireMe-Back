@@ -13,5 +13,6 @@ export const typeDefs = gql`
   type TypePost {
     id: Int!
     name: String!
+    posts: [Post]
   }
 `;

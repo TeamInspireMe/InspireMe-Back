@@ -13,5 +13,6 @@ export const typeDefs = gql`
     type Section {
         id: Int!
         name: String!
+        posts: [Post]
     }
 `;

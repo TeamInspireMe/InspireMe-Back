@@ -1,11 +1,8 @@
-import { Request, Response } from 'express';
 import { Post } from '../entity/Post';
-import { Section } from '../entity/Section';
 import { addPostRepository, getOnePostRepository, getAllPostRepository } from '../repositories/postRepository';
 import { getOneTypePostRepository } from '../repositories/typePostRepository'
-import { getOneSectionRepository } from '../repositories/sectionRepository';
+import { getOneSectionRepository, addPostToSectionRepository } from '../repositories/sectionRepository';
 import { validate, ValidationError } from 'class-validator';
-import { Type } from '../../types';
 
 interface BaseResult {
     status: number;
@@ -144,6 +141,9 @@ export const addPost = async (
   try {
 		const postToSend: Post = await addPostRepository(post)
 
+		console.log("okok")
+		const newSection = await addPostToSectionRepository(sectionId, postToSend)
+		console.log('okokok')
     res = {
       status: 201,
       data: { post: postToSend }
