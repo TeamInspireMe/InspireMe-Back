@@ -13,7 +13,7 @@ import { typeDefs as typeDefsSection } from './section/typeDefs';
 import { resolvers as resolversSection } from './section/resolvers';
 
 import { makeExecutableSchema } from 'apollo-server-express';
-var merge = require('lodash.merge');
+var merge = require('lodash/merge');
 
 const types = [
   typeDefsUser,

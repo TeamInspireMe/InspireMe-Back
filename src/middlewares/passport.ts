@@ -39,13 +39,10 @@ passport.use(
 			secretOrKey: process.env.SECRET as string,
 		},
 		async (jwtPayload, next) => {
-			console.log('JWT strategy');
-			console.log('jwtPayload:');
-			console.log(jwtPayload);
 			try {
 				const userRepository: Repository<User> = getRepository(User);
 				const user: User | undefined = await userRepository.findOne({
-					uuid: jwtPayload.id,
+					uuid: jwtPayload.uuid,
 				});
 
 				if (!user) throw new Error('user not found');
