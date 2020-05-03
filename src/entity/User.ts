@@ -102,7 +102,7 @@ export class User {
 		type => Post,
 		post => post.uuid,
 		{ eager: true }
-		)
+	)
 	@JoinColumn({name: 'postId'})
 	postId?: Post;
 
