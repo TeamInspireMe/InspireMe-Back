@@ -24,7 +24,7 @@
 		"pretty-quick": "npx pretty-quick --staged src/*.ts* src/**/*.ts*",
 		"dev": "nodemon",
 		"build": "npx babel src/ --out-dir .dist/ --extensions \".ts\" --source-maps inline --quiet --copy-files",
-		"start": "npm run build && node .dist/main.js"
+		"start": "node .dist/main.js"
 	},
 	"bugs": {
 		"url": "https://github.com/TeamInspireMe/InspireMe-Back/issues"
