@@ -8,6 +8,7 @@ interface PostToRegister {
     typeId: Number; 
     sectionId: Number; 
     data: String;
+    userId: String;
 }
 
 
@@ -62,7 +63,7 @@ export const resolvers = {
             args: PostToRegister,
         ): Promise<Post | Post[]> => {
             try {
-                const result = await addPost(args.title, args.typeId, args.sectionId, args.data)
+                const result = await addPost(args.title, args.typeId, args.sectionId, args.data, args.userId)
                 // console.log(result.data);
                 return (result as SuccessResult).data.post
             } catch (error) {

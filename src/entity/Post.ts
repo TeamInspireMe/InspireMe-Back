@@ -3,6 +3,7 @@ import { IsNotEmpty } from 'class-validator';
 import { Section } from './Section';
 import { TypePost } from './TypePost';
 import { Comment }  from './Comment';
+import { User }  from './User';
 
 @Entity()
 export class Post {
@@ -55,4 +56,11 @@ export class Post {
 
     @Column('integer')
     commentCount: number = 0;
+
+    @ManyToOne(
+        type => User,
+        user => user.uuid
+    )
+    @JoinColumn({name: 'userId'})
+    user!: User;
 }

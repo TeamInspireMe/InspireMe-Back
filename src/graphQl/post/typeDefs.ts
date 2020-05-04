@@ -7,7 +7,7 @@ export const typeDefs = gql`
     }
 
     type Mutation {
-        createPost(title: String!, typeId: Int!, sectionId: Int!, data: String!): Post!
+        createPost(title: String!, typeId: Int!, sectionId: Int!, data: String!, userId: String!): Post!
         upVotePost(uuid: String!): Post!
         downVotePost(uuid: String!): Post!
     }
@@ -26,5 +26,6 @@ export const typeDefs = gql`
         createdAt: Date
         comments: [Comment]
         commentCount: Int!
+        user: User
     }
 `;

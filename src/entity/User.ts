@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { Length, IsNotEmpty, IsEmail } from 'class-validator';
 import * as bcrypt from 'bcryptjs';
 import { Post } from './Post';
@@ -83,7 +83,7 @@ export class User {
 	uuid!: string;
 
 	@CreateDateColumn({type: "timestamp"})
-    createdAt!: Date;
+	createdAt!: Date;
 
 	@Column('text') 
 	@IsNotEmpty()
@@ -99,20 +99,16 @@ export class User {
 	@IsNotEmpty()
 	password!: string;
 
-	@ManyToOne(
+	@OneToMany(
 		type => Post,
-		post => post.uuid,
-		{ eager: true }
+		post => post.user,
 	)
-	@JoinColumn({name: 'postId'})
 	posts?: Post[];
 
-	@ManyToOne(
+	@OneToMany(
 		type => Comment,
 		coment => coment.uuid,
-		{ eager: true }
 	)
-	@JoinColumn({name: 'commentId'})
 	comments?: Comment[];
 
 	hashPassword(): void {

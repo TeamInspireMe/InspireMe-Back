@@ -3,6 +3,7 @@ import { addPostRepository, getOnePostRepository, getAllPostRepository, downVote
 import { getOneTypePostRepository } from '../repositories/typePostRepository'
 import { getOneSectionRepository } from '../repositories/sectionRepository';
 import { validate, ValidationError } from 'class-validator';
+import { getOneUserRepository } from '../repositories/userRepository';
 
 interface BaseResult {
     status: number;
@@ -104,33 +105,43 @@ export const addPost = async (
 	title: String, 
 	typeId: Number,
 	sectionId: Number,
-	data: String
+	data: String,
+	userId: String
 ): Promise<Result> => {
 	let res: SuccessResult;
 	let err: ErrorResult;
+
 	
 	const post = new Post();
 	post.title = title;
 	post.data = data;
-
+	
 	const typePost = await getOneTypePostRepository(typeId);
-
+	
 	if (typePost == undefined) {
 		console.log(`Error typeError is ${typePost}`);
 	} else {
 		post.type = typePost;
 	}
-
+	
 	const section = await getOneSectionRepository(sectionId)
-
+	
 	if (section == undefined) {
 		console.log(`Error section is ${section}`);
 	} else {
 		post.section = section;
 	}
+	
+	const user = await getOneUserRepository(userId)
 
+	if (user == undefined) {
+		console.log(`Error user is ${user}`);
+	} else {
+		post.user = user;
+	}
+	
 	const errors: ValidationError[] = await validate(post);
-
+	
 	if (errors.length > 0) {
 		err = {
 			status: 400,
