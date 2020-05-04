@@ -25,5 +25,6 @@ export const typeDefs = gql`
         reportCount: Int!
         createdAt: Date
         comments: [Comment]
+        commentCount: Int!
     }
 `;

@@ -14,7 +14,7 @@ export async function deletePostRepository(post: Post): Promise<boolean> {
 
 export async function getOnePostRepository (id: String) {
   const postRepository: Repository<Post> = getRepository(Post);
-  return await postRepository.findOne({uuid: id});
+  return await postRepository.findOne({ where: {uuid: id}, relations: ['comments']});
 }
 
 export async function getAllPostRepository () {
@@ -47,6 +47,22 @@ export async function downVotePostRepository (id: String){
     return await postRepository.save(currPost)
   }else {
     console.log(`Oops couldn't downVote`);
+  }
+
+}
+
+export async function addCommentToPost(id: String){
+  const postRepository: Repository<Post> = getRepository(Post);
+  const currPost = await postRepository.findOne({uuid: id});
+  if (currPost != undefined){
+    let counter: number = currPost.commentCount;
+    counter++
+    currPost.commentCount = counter
+    console.log(` Number of comments: ${currPost.commentCount}`);
+    return await postRepository.save(currPost)
+  } else {
+    console.log(`Oops couldn't count comments`);
+    
   }
 
 }

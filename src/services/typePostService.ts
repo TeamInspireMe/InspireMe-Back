@@ -55,11 +55,9 @@ export const addTypePost = async (id: Number, name: String) => {
 			reject: (result: ErrorResult) => void,
 		) => {
 			if (err) {
-        console.log(err)
         reject(err);
       }
 			else {
-        console.log(res)
 				resolve(res);
 			}
 		},

@@ -2,7 +2,7 @@ import { Comment } from '../entity/Comment';
 import { validate, ValidationError } from 'class-validator';
 import { getOneUserRepository } from '../repositories/userRepository';
 import { addCommentRepository, getAllCommentRepository, getOneCommentRepository, deleteCommentRepository } from '../repositories/commentRepository'
-import { getOnePostRepository } from '../repositories/postRepository';
+import { getOnePostRepository, addCommentToPost } from '../repositories/postRepository';
 
 
 interface BaseResult {
@@ -63,8 +63,8 @@ export const addComment = async (postId: String, userId: String, content: String
 
   try {
       const commentToSend: Comment = await addCommentRepository(comment);
-      // console.log('chuiici')
-      // console.log(commentToSend)
+
+      await addCommentToPost(postId);
 
       res = {
         status: 201,

@@ -49,8 +49,10 @@ export class Post {
 
     @OneToMany(
         type => Comment,
-        comment => comment.uuid
+        comment => comment.post
     )
-    @JoinColumn({name: 'Comment'})
-    comments?: Comment[]
+    comments?: Comment[];
+
+    @Column('integer')
+    commentCount: number = 0;
 }

@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne } from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinColumn } from "typeorm";
 import { IsNotEmpty } from 'class-validator';
 import { User } from "./User";
 import { Post } from "./Post";
@@ -25,5 +25,6 @@ export class Comment {
         type => Post,
         post => post.uuid
     )
+    @JoinColumn({name: 'post'})
     post!: Post;
 } 

@@ -21,7 +21,11 @@ app.use(cors());
 
 app.use('/api', Routes);
 
-app.get('/', (req, res) => res.status(200).end('Type /api to use it'));
+app.get('/', (req, res) => {
+	res
+	.status(200)
+	.end('Type /api to use it')}
+);
 
 // Swagger set up
 const options = {
