@@ -5,6 +5,7 @@ import { addPost, SuccessResult, ErrorResult } from '../services/postService';
 import { validate, ValidationError } from 'class-validator';
 import { SendMail, Mail } from '../services/mailGunService';
 import S3 from '../services/s3Service';
+import axios from 'axios';
 
 interface _avatarMulterFile extends Express.Multer.File {
 	location: string; // location not present (forgotten?) in multer types
@@ -65,6 +66,35 @@ export default class PostController {
 
     });
   };
-}
 
- 
+  static fetchPost = async (
+    req: any,
+    res: any
+  ): Promise<void> => {
+    try {
+      const response = await axios.get(`https://apodapi.herokuapp.com/api/?start_date=2018-10-05&end_date=2018-10-10`)
+      console.log(response.data);
+      
+      let datas = JSON.parse(response.data);
+
+      datas.forEach((dataFetched: { title: String; url: String;})=> {
+        let post: Post | Post[];
+
+        const title = dataFetched.title;
+        const data = dataFetched.url;
+        const typeId = 2;
+        const sectionId = 2;
+
+        const uuid = req.body.userId
+
+        const result = addPost(title, typeId, sectionId, data, uuid)
+      });
+
+    } catch (err) {
+      console.log(err);
+      this.fetchPost(req, res)
+    }
+    
+    
+  }
+}

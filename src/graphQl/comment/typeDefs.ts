@@ -15,6 +15,7 @@ export const typeDefs = gql`
     type Comment {
         uuid: String!
         content: String!
+        createdAt: Date!
         user: User!
         post: Post!
     }
