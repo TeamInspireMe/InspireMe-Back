@@ -10,6 +10,7 @@ import { ApolloServer } from 'apollo-server-express';
 // import { schema } from './graphQl';
 import { typeDefs, resolvers } from './graphQl/schema';
 import { makeExecutableSchema } from 'apollo-server-express';
+const path = require('path');
 
 
 const app: Express = express();
@@ -24,8 +25,9 @@ app.use('/api', Routes);
 app.get('/', (req, res) => {
 	res
 	.status(200)
-	.end('Type /api to use it')}
-);
+	//.end('Type /api to use it')
+	.sendFile(path.join(__dirname+'/index.html'));
+});
 
 // Swagger set up
 const options = {
