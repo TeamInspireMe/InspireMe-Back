@@ -44,7 +44,7 @@ export default class PostController {
       }
 
       console.log(req.body.title);
-      const { title, sectionId } = req.body;
+      const { title, sectionId, userId } = req.body;
       
       const data: String = req.file.location
 
@@ -53,7 +53,7 @@ export default class PostController {
       let post: Post | Post[];
 
       try {
-        const result = await addPost(title, typeId, sectionId, data)
+        const result = await addPost(title, typeId, sectionId, data, userId)
         // console.log(result.data);
         post = (result as SuccessResult).data.post
       } catch (error) {
