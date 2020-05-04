@@ -1,23 +1,16 @@
 import { AuthenticationError } from 'apollo-server-errors';
 import {
 	signupService,
-	signinService,
-	SuccesResult,
+	SuccessResult,
 	ErrorResult,
-} from '../services/userAuthServices';
-import { User } from '../entity/User';
-
-// TODO: Check usage type User  shared package instae?
-interface UserToRegister {
-	username: string;
-	password: string;
-	email: string;
-}
+} from '../../services/userAuthServices';
+import { User } from '../../entity/User';
+import { UserToRegister } from '../../../types'; 
 
 // Provide resolver functions for your schema fields
 export const resolvers = {
 	Query: {
-		hello: () => 'Hello world!',
+		helloo: () => 'Hello world!',
 	},
 	Mutation: {
 		signUp: async (
@@ -31,7 +24,8 @@ export const resolvers = {
 					password,
 					email,
 				);
-				return (result as SuccesResult).data.user;
+	
+				return (result as SuccessResult).data.user;
 			} catch (error) {
 				throw new AuthenticationError((error as ErrorResult).err);
 			}

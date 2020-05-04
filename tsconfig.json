@@ -11,11 +11,13 @@
 		"noEmit": true,
 		"strict": true,
 		"esModuleInterop": false,
+		"rejectUnauthorized": true,
 		"allowSyntheticDefaultImports": true,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"outDir": ".dist"
 	},
+	"files": ["types.d.ts"],
 	"include": [
 		"src",
 		"types.d.ts"

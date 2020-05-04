@@ -1,4 +1,4 @@
-import express, { Express } from 'express';
+  import express, { Express } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import passport from 'passport';
@@ -7,8 +7,11 @@ import './middlewares/passport';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { ApolloServer } from 'apollo-server-express';
-import { typeDefs } from './graphQl/typeDefs';
-import { resolvers } from './graphQl/resolvers';
+// import { schema } from './graphQl';
+import { typeDefs, resolvers } from './graphQl/schema';
+import { makeExecutableSchema } from 'apollo-server-express';
+const path = require('path');
+
 
 const app: Express = express();
 
@@ -19,7 +22,12 @@ app.use(cors());
 
 app.use('/api', Routes);
 
-app.get('/', (req, res) => res.status(200).end('Type /api to use it'));
+app.get('/', (req, res) => {
+	res
+	.status(200)
+	//.end('Type /api to use it')
+	.sendFile(path.join(__dirname+'/index.html'));
+});
 
 // Swagger set up
 const options = {
@@ -51,7 +59,13 @@ app.get(
 );
 
 // GraphQL startup
-const server = new ApolloServer({ typeDefs, resolvers });
+export const schema = makeExecutableSchema({
+	typeDefs,
+	resolvers
+})
+const server = new ApolloServer({ schema });
+// const server = new ApolloServer({ typeDefs, resolvers });
+
 server.applyMiddleware({ app });
 
 export default app;

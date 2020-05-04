@@ -1,6 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, Unique } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { Length, IsNotEmpty, IsEmail } from 'class-validator';
 import * as bcrypt from 'bcryptjs';
+import { Post } from './Post';
+import { Comment } from './Comment';
 
 /**
  * @swagger
@@ -80,8 +82,10 @@ export class User {
 	@PrimaryGeneratedColumn('uuid')
 	uuid!: string;
 
-	// @Column('text', { nullable: true })
-	@Column('text') // TODO: why?
+	@CreateDateColumn({type: "timestamp"})
+	createdAt!: Date;
+
+	@Column('text') 
 	@IsNotEmpty()
 	username!: string;
 
@@ -94,6 +98,18 @@ export class User {
 	@Length(8, 20)
 	@IsNotEmpty()
 	password!: string;
+
+	@OneToMany(
+		type => Post,
+		post => post.user,
+	)
+	posts?: Post[];
+
+	@OneToMany(
+		type => Comment,
+		coment => coment.uuid,
+	)
+	comments?: Comment[];
 
 	hashPassword(): void {
 		this.password = bcrypt.hashSync(this.password, 8);

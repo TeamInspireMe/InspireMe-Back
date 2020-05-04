@@ -1,4 +1,4 @@
- import { getRepository, Repository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 import { Request, Response } from 'express';
 import { User } from '../entity/User';
 import { validate, ValidationError } from 'class-validator';
