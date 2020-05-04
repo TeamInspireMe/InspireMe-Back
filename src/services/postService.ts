@@ -1,7 +1,7 @@
 import { Post } from '../entity/Post';
-import { addPostRepository, getOnePostRepository, getAllPostRepository } from '../repositories/postRepository';
+import { addPostRepository, getOnePostRepository, getAllPostRepository, downVotePostRepository, upVotePostRepository } from '../repositories/postRepository';
 import { getOneTypePostRepository } from '../repositories/typePostRepository'
-import { getOneSectionRepository, addPostToSectionRepository } from '../repositories/sectionRepository';
+import { getOneSectionRepository } from '../repositories/sectionRepository';
 import { validate, ValidationError } from 'class-validator';
 
 interface BaseResult {
@@ -141,9 +141,6 @@ export const addPost = async (
   try {
 		const postToSend: Post = await addPostRepository(post)
 
-		console.log("okok")
-		const newSection = await addPostToSectionRepository(sectionId, postToSend)
-		console.log('okokok')
     res = {
       status: 201,
       data: { post: postToSend }
@@ -168,6 +165,87 @@ export const addPost = async (
   );
 }
 
-export const upVote = async () => {
-	
+
+
+
+export const downVote = async (id: String) => {
+  let res: SuccessResult;
+  let err: ErrorResult;
+
+  try {
+		const postToSend: Post | undefined = await downVotePostRepository(id)
+
+    if (postToSend == undefined) {
+      err = {
+        status: 400,
+        err: "this post doesn't exists",
+
+      }
+    } else {
+
+      res = {
+        status: 201,
+        data: { post: postToSend }
+      }
+    }
+
+  } catch (error) {
+    err = {
+			status: 400,
+			err: error.message,
+		};
+  }
+
+  return new Promise (
+    (
+			resolve: (result: SuccessResult) => void,
+			reject: (result: ErrorResult) => void,
+		) => {
+      if (err) reject(err);
+			else {
+				resolve(res);
+			}
+    },
+  )
 }
+
+export const upVote = async (id: String) => {
+	let res: SuccessResult;
+	let err: ErrorResult;
+  
+	try {
+		  const postToSend: Post | undefined = await upVotePostRepository(id)
+  
+	  if (postToSend == undefined) {
+		err = {
+		  status: 400,
+		  err: "this post doesn't exists",
+  
+		}
+	  } else {
+  
+		res = {
+		  status: 201,
+		  data: { post: postToSend }
+		}
+	  }
+  
+	} catch (error) {
+	  err = {
+			  status: 400,
+			  err: error.message,
+		  };
+	}
+  
+	return new Promise (
+	  (
+			  resolve: (result: SuccessResult) => void,
+			  reject: (result: ErrorResult) => void,
+		  ) => {
+		if (err) reject(err);
+			  else {
+				  resolve(res);
+			  }
+	  },
+	)
+  }

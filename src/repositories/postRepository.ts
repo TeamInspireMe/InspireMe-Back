@@ -25,27 +25,31 @@ export async function getAllPostRepository () {
 export async function upVotePostRepository (id: String) {
   const postRepository: Repository<Post> = getRepository(Post);
   const currPost = await postRepository.findOne({ uuid: id })
-  let test: number = 0;
-  test ++;
-  if (currPost != undefined && currPost.upVote != undefined) {
-    let currUp = currPost.upVote++
+  if(currPost != undefined){
+    let upVoted: number = currPost.upVote;
+    upVoted++;
+    currPost.upVote = upVoted;
+
+    return await postRepository.save(currPost)
+  }else {
+    console.log(`Oops couldn't upVote`);
   }
-  return await postRepository.update({ uuid: id }, { upVote: currUp })
 }
 
-export async function downVotePostRepositoy (id: String){
+export async function downVotePostRepository (id: String){
   const postRepository: Repository<Post> = getRepository(Post);
   const currPost = await postRepository.findOne({uuid: id});
   if (currPost != undefined) {
-    console.log("test downVote");    
+    console.log("test downVote");
     
-    const downVoted = currPost.downVote++;
-    console.log(` Number of downVote: ${downVoted}`);
+    let downVoted: number = currPost.downVote;
+    downVoted++
+    currPost.downVote = downVoted
+    console.log(` Number of downVote: ${currPost.downVote}`);
 
-    return await postRepository.update({uuid: id}, {downVote: downVoted})
+    return await postRepository.save(currPost)
   }else {
     console.log(`Oops couldn't downVote`);
   }
 
-  
 }

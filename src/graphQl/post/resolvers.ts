@@ -1,6 +1,6 @@
 import { Post, } from "../../entity/Post";
 import { Section } from "../../entity/Section";
-import { addPost, getOnePost, getAllPost, SuccessResult, ErrorResult } from '../../services/postService';
+import { addPost, getOnePost, getAllPost,upVote, downVote, SuccessResult, ErrorResult } from '../../services/postService';
 import { TypePost  } from "../../entity/TypePost";
 
 interface PostToRegister {
@@ -35,12 +35,27 @@ export const resolvers = {
         },
     },
     Mutation: {
-        upVotePost: (postId: Post["uuid"]): void => { //TODO: add func to service and repository
-            console.log('upvote');
-            
+        upVotePost: async (
+            parent: any,
+            args: Post,
+        ): Promise<Post | Post[]> => {
+            try {
+                const result = await upVote(args.uuid)
+                return (result as SuccessResult).data.post
+            } catch (error) {
+                throw new Error;
+            }
         },
-        downVotePost: (postId: Post["uuid"]): void => {
-            console.log('downvote');
+        downVotePost: async (
+            parent: any,
+            args: Post,
+        ): Promise<Post | Post[]> => {
+            try {
+                const result = await downVote(args.uuid)
+                return (result as SuccessResult).data.post
+            } catch (error) {
+                throw new Error;
+            }
         },
         createPost: async (
             parent: any,
