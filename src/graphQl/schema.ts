@@ -12,6 +12,9 @@ import { resolvers as resolversTypePost } from './typePost/resolvers';
 import { typeDefs as typeDefsSection } from './section/typeDefs';
 import { resolvers as resolversSection } from './section/resolvers';
 
+import { typeDefs as typeDefsComment } from './comment/typeDefs';
+import { resolvers as resolversComment } from './comment/resolvers';
+
 import { makeExecutableSchema } from 'apollo-server-express';
 var merge = require('lodash/merge');
 
@@ -19,7 +22,8 @@ const types = [
   typeDefsUser,
   typeDefsPost,
   typeDefsTypePost,
-  typeDefsSection
+  typeDefsSection,
+  typeDefsComment
 ];
 export const typeDefs = mergeTypes(types, { all: true });
 
@@ -34,7 +38,8 @@ export const resolvers = merge({},
   resolversUser,
   resolversPost,
   resolversTypePost,
-  resolversSection
+  resolversSection,
+  resolversComment
 )
 
 // export const schema = makeExecutableSchema({

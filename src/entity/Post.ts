@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { IsNotEmpty } from 'class-validator';
 import { Section } from './Section';
 import { TypePost } from './TypePost';
+import { Comment }  from './Comment';
 
 @Entity()
 export class Post {
@@ -45,4 +46,12 @@ export class Post {
 
     @Column('integer')
     downVote: number = 0;
+
+    @OneToMany(
+        type => Comment,
+        comment => comment.uuid,
+        { eager: true }
+    )
+    @JoinColumn({name: 'Comment'})
+    comments?: Comment[]
 }

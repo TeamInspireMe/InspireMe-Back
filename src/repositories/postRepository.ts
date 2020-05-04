@@ -18,8 +18,12 @@ export async function getOnePostRepository (id: String) {
 }
 
 export async function getAllPostRepository () {
+  console.log("ok")
   const postRepository: Repository<Post> = getRepository(Post);
-  return postRepository.find();
+  const test = await postRepository.find();
+  console.log(test)
+  console.log('ko')
+  return await postRepository.find();
 }
 
 export async function upVotePostRepository (id: String) {
@@ -29,7 +33,7 @@ export async function upVotePostRepository (id: String) {
     let upVoted: number = currPost.upVote;
     upVoted++;
     currPost.upVote = upVoted;
-
+    console.log(` Number of upVote: ${currPost.upVote}`);
     return await postRepository.save(currPost)
   }else {
     console.log(`Oops couldn't upVote`);
@@ -39,14 +43,11 @@ export async function upVotePostRepository (id: String) {
 export async function downVotePostRepository (id: String){
   const postRepository: Repository<Post> = getRepository(Post);
   const currPost = await postRepository.findOne({uuid: id});
-  if (currPost != undefined) {
-    console.log("test downVote");
-    
+  if (currPost != undefined) {    
     let downVoted: number = currPost.downVote;
     downVoted++
     currPost.downVote = downVoted
     console.log(` Number of downVote: ${currPost.downVote}`);
-
     return await postRepository.save(currPost)
   }else {
     console.log(`Oops couldn't downVote`);

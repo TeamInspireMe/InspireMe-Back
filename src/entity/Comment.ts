@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne } from "typeorm";
+import { IsNotEmpty } from 'class-validator';
 import { User } from "./User";
 import { Post } from "./Post";
 
@@ -10,12 +11,21 @@ export class Comment {
     @CreateDateColumn({type: "timestamp"})
     createdAt!: Date;
 
-    @Column()
-    name!: String;
+    @Column('text')
+    @IsNotEmpty()
+    content!: String;
 
-    @Column()
-    userId!: User["uuid"];
+    @ManyToOne(
+        type => User,
+        user => user.uuid,
+        { eager: true }
+    )
+    user!: User;
 
-    @Column()
-    postId!: Post["uuid"];
-}
+    @ManyToOne(
+        type => Post,
+        post => post.uuid,
+        { eager: true }
+    )
+    post!: Post;
+} 

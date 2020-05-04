@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateColumn, ManyT
 import { Length, IsNotEmpty, IsEmail } from 'class-validator';
 import * as bcrypt from 'bcryptjs';
 import { Post } from './Post';
+import { Comment } from './Comment';
 
 /**
  * @swagger
@@ -104,7 +105,15 @@ export class User {
 		{ eager: true }
 	)
 	@JoinColumn({name: 'postId'})
-	postId?: Post;
+	posts?: Post[];
+
+	@ManyToOne(
+		type => Comment,
+		coment => coment.uuid,
+		{ eager: true }
+	)
+	@JoinColumn({name: 'commentId'})
+	comments?: Comment[];
 
 	hashPassword(): void {
 		this.password = bcrypt.hashSync(this.password, 8);

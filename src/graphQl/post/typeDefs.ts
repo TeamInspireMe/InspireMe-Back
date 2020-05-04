@@ -24,5 +24,6 @@ export const typeDefs = gql`
         downVote: Int!
         reportCount: Int!
         createdAt: Date
+        comments: [Comment]
     }
 `;

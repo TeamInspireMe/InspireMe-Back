@@ -72,12 +72,13 @@ export const getAllPost = async () => {
       err = {
         status: 400,
         err: "an error occured while fetching all TypePosts",
-      }
+			}
     } else {
       res = {
         status: 201,
         data: { post: postToSend }
-      }
+			}
+			console.log(res)
     }
 
   } catch (error) {
@@ -85,7 +86,7 @@ export const getAllPost = async () => {
 			status: 400,
 			err: error.message,
 		};
-  }
+	}
 
   return new Promise (
     (
@@ -164,9 +165,6 @@ export const addPost = async (
 		},
   );
 }
-
-
-
 
 export const downVote = async (id: String) => {
   let res: SuccessResult;
@@ -248,4 +246,4 @@ export const upVote = async (id: String) => {
 			  }
 	  },
 	)
-  }
+}

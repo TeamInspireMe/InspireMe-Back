@@ -4,19 +4,19 @@ import { addSectionPostRepository, getOneSectionRepository, getAllSectionReposit
 
 interface BaseResult {
     status: number;
-  }
+}
   
-  export interface SuccessResult extends BaseResult {
+export interface SuccessResult extends BaseResult {
     data: {
       section: Section | Section[];
     }
-  }
+}
   
-  export interface ErrorResult extends BaseResult {
+export interface ErrorResult extends BaseResult {
   err: any;
-  }
+}
   
-  type Result = SuccessResult | ErrorResult;
+type Result = SuccessResult | ErrorResult;
 
 export const addSection = async (id: Number, name: String) => {
     let res: SuccessResult;
