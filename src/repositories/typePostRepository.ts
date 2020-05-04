@@ -8,7 +8,7 @@ export async function addTypePostRepository (type: TypePost) {
 
 export async function getOneTypePostRepository (id: Number) {
   const typeRepository: Repository<TypePost> = getRepository(TypePost)
-  return await typeRepository.findOne({id: id})
+  return await typeRepository.findOne({ where: { id: id }, relations: ["posts"]})
 }
 
 export async function getAllTypePostRepository () {

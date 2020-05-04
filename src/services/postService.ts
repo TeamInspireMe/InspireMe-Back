@@ -168,6 +168,6 @@ export const addPost = async (
   );
 }
 
-export const addImage = async () => {
+export const upVote = async () => {
 	
 }

@@ -38,11 +38,11 @@ export class Post {
     section!: Section; 
 
     @Column('integer')
-    reportCount?: Number = 0;
+    reportCount: number = 0;
 
     @Column('integer')
-    upVote?: Number = 0;
+    upVote: number = 0;
 
     @Column('integer')
-    downVote?: Number = 0;
+    downVote: number = 0;
 }

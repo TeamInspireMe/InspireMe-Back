@@ -14,7 +14,7 @@ export class Section {
     
     @OneToMany(
         type => Post,
-        post => post.type
+        post => post.section
     )
     posts?: Post[]
 }
