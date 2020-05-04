@@ -8,12 +8,12 @@ export const typeDefs = gql`
     },
 
     type Mutation {
-        createComment(id: Int!, content: String!): Comment!
+        createComment(postId: String!, userId:String!, content: String!): Comment!
         deleteComment(uuid: String): Boolean!
     },
 
     type Comment {
-        id: Int!
+        uuid: String!
         content: String!
         user: User!
         post: Post!

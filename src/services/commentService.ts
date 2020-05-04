@@ -2,6 +2,7 @@ import { Comment } from '../entity/Comment';
 import { validate, ValidationError } from 'class-validator';
 import { getOneUserRepository } from '../repositories/userRepository';
 import { addCommentRepository, getAllCommentRepository, getOneCommentRepository, deleteCommentRepository } from '../repositories/commentRepository'
+import { getOnePostRepository } from '../repositories/postRepository';
 
 
 interface BaseResult {
@@ -20,7 +21,7 @@ err: any;
 
 type Result = SuccessResult | ErrorResult;
 
-export const addComment = async (content: String, userId: String) => {
+export const addComment = async (postId: String, userId: String, content: String) => {
   let res: SuccessResult;
   let err: ErrorResult;
 
@@ -38,6 +39,19 @@ export const addComment = async (content: String, userId: String) => {
     };
   }
 
+  const post = await getOnePostRepository(postId)
+  
+  if (post != undefined) {
+    comment.post = post;
+  } else {
+    err = {
+      status: 400,
+      err: "cannot find post",
+    };
+  }
+
+  console.log(comment);
+
   const errors: ValidationError[] = await validate(comment);
 
   if (errors.length > 0) {
@@ -49,6 +63,8 @@ export const addComment = async (content: String, userId: String) => {
 
   try {
       const commentToSend: Comment = await addCommentRepository(comment);
+      // console.log('chuiici')
+      // console.log(commentToSend)
 
       res = {
         status: 201,

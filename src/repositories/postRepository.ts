@@ -18,11 +18,7 @@ export async function getOnePostRepository (id: String) {
 }
 
 export async function getAllPostRepository () {
-  console.log("ok")
   const postRepository: Repository<Post> = getRepository(Post);
-  const test = await postRepository.find();
-  console.log(test)
-  console.log('ko')
   return await postRepository.find();
 }
 

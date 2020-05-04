@@ -49,8 +49,7 @@ export class Post {
 
     @OneToMany(
         type => Comment,
-        comment => comment.uuid,
-        { eager: true }
+        comment => comment.uuid
     )
     @JoinColumn({name: 'Comment'})
     comments?: Comment[]

@@ -17,15 +17,13 @@ export class Comment {
 
     @ManyToOne(
         type => User,
-        user => user.uuid,
-        { eager: true }
+        user => user.uuid
     )
     user!: User;
 
     @ManyToOne(
         type => Post,
-        post => post.uuid,
-        { eager: true }
+        post => post.uuid
     )
     post!: Post;
 } 

@@ -78,7 +78,6 @@ export const getAllPost = async () => {
         status: 201,
         data: { post: postToSend }
 			}
-			console.log(res)
     }
 
   } catch (error) {

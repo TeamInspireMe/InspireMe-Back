@@ -4,6 +4,7 @@ import { getAllComment, getOneComment, addComment, deleteComment, SuccessResult,
 interface CommentToRegister {
   content: String; 
   userId: String; 
+  postId: String;
 }
 
 export const resolvers = {
@@ -34,7 +35,8 @@ export const resolvers = {
             args: CommentToRegister,
         ): Promise<Comment | Comment[]> => {
             try {
-                const result: SuccessResult = await addComment(args.content, args.userId)
+                const result: SuccessResult = await addComment(args.postId, args.userId, args.content)
+                console.log("Plop",result.data.comment)
                 return result.data.comment
             } catch (error){
                 throw new Error;
