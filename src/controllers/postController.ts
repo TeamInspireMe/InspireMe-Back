@@ -74,6 +74,7 @@ export default class PostController {
     res: any
   ): Promise<void> => {
     try {
+
       const response = await axios.get(`https://apodapi.herokuapp.com/api/?start_date=2018-10-05&end_date=2019-10-10`)      
       let datas = JSON.parse(JSON.stringify(response.data));
 
