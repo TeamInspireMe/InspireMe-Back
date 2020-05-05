@@ -19,7 +19,11 @@ export async function getOnePostRepository (id: String) {
 
 export async function getAllPostRepository () {
   const postRepository: Repository<Post> = getRepository(Post);
-  return await postRepository.find();
+  return await postRepository.find({
+    order: {
+      createdAt: "DESC"
+    }
+  });
 }
 
 export async function upVotePostRepository (id: String) {
