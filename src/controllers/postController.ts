@@ -74,19 +74,20 @@ export default class PostController {
     res: any
   ): Promise<void> => {
     try {
-      const response = await axios.get(`https://apodapi.herokuapp.com/api/?start_date=2018-10-05&end_date=2018-10-10`)      
+      const response = await axios.get(`https://apodapi.herokuapp.com/api/?start_date=2018-10-05&end_date=2019-10-10`)      
       let datas = JSON.parse(JSON.stringify(response.data));
 
-      datas.forEach(async (dataFetched: { title: String; url: String;})=> {
-
-        const title = dataFetched.title;
-        const data = dataFetched.url;
-        const typeId = 2;
-        const sectionId = 2;
-
-        const uuid = req.body.userId        
-
-        const result = await addPost(title, typeId, sectionId, data, uuid)
+      datas.forEach(async (dataFetched: { title: String; url: String; media_type: String})=> {
+        if (dataFetched.media_type == 'image'){
+          const title = dataFetched.title;
+          const data = dataFetched.url;
+          const typeId = 2;
+          const sectionId = 2;
+  
+          const uuid = req.body.userId        
+  
+          const result = await addPost(title, typeId, sectionId, data, uuid)
+        }
       });
 
     } catch (err) {
